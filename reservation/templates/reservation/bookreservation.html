@@ -1,0 +1,82 @@
+{% extends 'reservation/base.html' %}
+
+{% block content %}
+	<div class="container text-center" style="margin-top:50px">
+		<h1>Book Reservation</h1>
+		
+		<div class="row">
+		<div class="col-md-6">
+			<select id="studentnames">
+			<option value="" disabled selected>Select Student Name</option>
+			{% for row in studentnames %}
+			<option value="{{row.firstname}}">{{row.firstname}}</option>		
+			{% endfor %}					
+			</select>
+		</div>
+		<div class="col-md-6">
+			<select id="booknames">
+			<option value="" disabled selected>Select Book Title</option>
+			{% for row in booknames %}
+			<option value="{{row.booktitle}}">{{row.booktitle}}</option>
+			{% endfor %}				
+			</select>
+		</div>
+		</div> <br/><br/>
+		
+		<button class="btn btn-primary" id="btnselect">Reserve</button><br/><br/>
+		
+		<h5 id="result"></h5><br/>
+		
+		<table class="table">
+				<thead>
+					<tr>
+						<th>Student Name</th>
+						<th>Book Title</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in reservationdata %}
+					<tr>
+						<td>{{row.studentname}}</td>
+						<td>{{row.bookname}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+		</table>
+	</div>
+	<!-- AJAX requests -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>	
+	<script>
+	
+		$('document').ready(function (){
+		
+			$('#btnselect').click(function (){
+			
+				$.ajax({
+			
+				url: "{% url 'savereservation' %}",
+				data: {
+					studentname: $('#studentnames').val(),
+					bookname: $('#booknames').val()
+				},			 
+				success: function(data){
+					if (data == 'Success')	 
+					{
+				
+						window.location = "{% url 'bookreservation' %}";
+				
+					}
+					else{
+				
+						$('#result').html('Reservation was unsuccessful');
+				
+					}
+				}
+			
+			});
+				
+		});
+	});		
+	</script>
+{% endblock %}

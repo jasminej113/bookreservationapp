@@ -1,0 +1,32 @@
+{% extends 'reservation/base.html' %}
+
+{% block content %}
+		<div class="container text-center">
+			<h1>Dashboard</h1>
+		</div>
+		<div class="container text-center">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Number of Seniors</th>
+						<th>Number of Sophomores</th>
+						<th>Number of Juniors</th>
+						<th>Chemistry Majors</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					
+						<tr>
+							<td>{{ seniors }}</td>
+							<td>{{ soph }}</td>
+							<td>{{ juniors }}</td>
+							<td>{{ chem }}</td> 
+						</tr>
+					
+				</tbody>
+			
+			</table>
+		
+		
+{% endblock %}
